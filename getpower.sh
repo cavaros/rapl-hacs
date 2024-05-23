@@ -1,9 +1,8 @@
 #!/usr/bin/bash
-
 time=1
-T0=($(sudo cat /sys/class/powercap/*/energy_uj))
+T0=($(cat /sys/class/powercap/*/energy_uj))
 sleep $time
-T1=($(sudo cat /sys/class/powercap/*/energy_uj))
+T1=($(cat /sys/class/powercap/*/energy_uj))
 sum=0
 for i in "${!T0[@]}"
     do 
@@ -14,4 +13,4 @@ for i in "${!T0[@]}"
         sum=$(($sum+$power))
         # echo $sum
 done
-echo "$sum W/h"
+echo "$sum"
