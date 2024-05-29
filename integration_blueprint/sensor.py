@@ -43,15 +43,15 @@ class IntegrationBlueprintSensor(IntegrationBlueprintEntity, SensorEntity):
         super().__init__(coordinator)
         self.entity_description = entity_description
         self._attr_native_unit_of_measurement = UnitOfPower.WATT
-        self.value = 0
 
     @property
     def native_value(self) -> str:
         """Return the native value of the sensor."""
         import subprocess
+        value = 0
         try:
             teste = int(subprocess.run(['/config/execpower.sh'], stdout=subprocess.PIPE).stdout.decode('utf-8'))
-            self.value = teste
-            return self.value if self.value >= 0 else 0
+            value = teste
+            return value if value >= 0 else 0
         except:
-            return self.value if self.value >= 0 else 0
+            return value if value >= 0 else 0
