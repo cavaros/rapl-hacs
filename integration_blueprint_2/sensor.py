@@ -48,10 +48,10 @@ class IntegrationBlueprintSensor(IntegrationBlueprintEntity, SensorEntity):
     @property
     def native_value(self) -> str:
         """Return the native value of the sensor."""
-        import urllib.request, json 
+        import subprocess, json
         try:
-            with urllib.request.urlopen("http://lucas-81fn.local:5467") as url:
-                self.value = json.load(url)["powercap"]
-                return self.value
+            subprocess.Popen(['/config/execpowernote.sh'])
+            self.value = json.load(open('/config/getpowernote.txt'))["powercap"]
+            return self.value if self.value >= 0 else 0
         except:
             return self.value if self.value >= 0 else 0
